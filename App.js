@@ -1,54 +1,42 @@
 import React from "react";
-import { StyleSheet, Text, View, SafeAreaView } from "react-native";
-import { COLORS, TYPOGRAPHY } from "./src/constants/theme";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
+// Entry Funnel
+import Onboarding from "./src/screens/Onboarding";
+import Auth from "./src/screens/Auth";
+import BankLink from "./src/screens/BankLink";
+
+// Core Pillars
+import Dashboard from "./src/screens/Dashboard";
+import Cashflow from "./src/screens/Cashflow";
+import Portfolio from "./src/screens/Portfolio";
+import Forecaster from "./src/screens/Forecaster";
+import Atlas from "./src/screens/Atlas";
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <SafeAreaView style={StyleSheet.container}>
-      <View style={StyleSheet.card}>
-        <Text style={StyleSheet.title}>Arco Premium Engine</Text>
-        <Text style={StyleSheet.balance}>R10,000.00</Text>
-        <Text style={StyleSheet.status}>Design System Initialized</Text>
-      </View>
-    </SafeAreaView>
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+          animation: "none", // Instantly snaps between screens like a true tab bar
+        }}
+      >
+        {/* Funnel */}
+        <Stack.Screen name="Onboarding" component={Onboarding} />
+        <Stack.Screen name="Auth" component={Auth} />
+        <Stack.Screen name="BankLink" component={BankLink} />
+
+        {/* Core Hub */}
+        <Stack.Screen name="Dashboard" component={Dashboard} />
+        <Stack.Screen name="Cashflow" component={Cashflow} />
+        <Stack.Screen name="Portfolio" component={Portfolio} />
+        <Stack.Screen name="Forecaster" component={Forecaster} />
+        <Stack.Screen name="Atlas" component={Atlas} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: COLORS.background.surfaceLight,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  card: {
-    width: "90%",
-    backgroundColor: COLORS.background.light,
-    borderWidth: 1,
-    borderColor: COLORS.border.light,
-    borderRadius: 12,
-    padding: 24,
-    alignItems: "center",
-  },
-  title: {
-    fontFamily: TYPOGRAPHY.fontFamily,
-    fontSize: 16,
-    color: COLORS.text.secondaryLight,
-    marginBottom: 8,
-  },
-  balance: {
-    fontFamily: TYPOGRAPHY.fontFamily,
-    fontSize: 32,
-    fontWeight: "700",
-    color: COLORS.text.primaryLight,
-    ...TYPOGRAPHY.tabularNumbers, // Enforces alignment on the simulator
-    marginBottom: 16,
-  },
-  status: {
-    fontSize: 12,
-    color: COLORS.success,
-    fontWeight: "600",
-    textTransform: "uppercase",
-    letterSpacing: 1,
-  },
-});
