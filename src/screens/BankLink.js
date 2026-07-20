@@ -40,7 +40,6 @@ export default function BankLink({ navigation }) {
       });
 
       setIsLinking(false);
-      navigation.navigate("Dashboard");
     }, 2500);
   };
 
